@@ -2,6 +2,8 @@
 
 Open integration bounties for agent developers building on the RAEN x402 fleet.
 
+> 🔔 **Status: ACTIVELY SEEKING INTEGRATORS.** We are open for business and want real integrations — dev keys are paid on merge, 24h turnaround. Managed white-label fulfillment also available for businesses (from $49/package). Live ledger: https://settlement-collector.fly.dev/proof
+
 **Reward:** the winning contributor gets a **free 30-day RAEN MCP gateway dev key**
 (Bearer access to `law_lookup`, `dispute_letter`, `image_generate`, `contract_analyze`, `tool_finder`
 at `https://raen-mcp-gateway.fly.dev/mcp`) plus a shout-out in
