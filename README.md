@@ -1,35 +1,48 @@
-# RAEN Bounty Board
+# RAEN CrewAI Tools
 
-Open integration bounties for agent developers building on the RAEN x402 fleet.
+This repository provides [CrewAI](https://crewai.com) tool wrappers for the **RAEN MCP Gateway**. These tools allow AI agents to programmatically draft legal dispute letters and analyze contracts using RAEN's specialized legal models.
 
-> 🔔 **Status: ACTIVELY SEEKING INTEGRATORS.** We are open for business and want real integrations — dev keys are paid on merge, 24h turnaround. Managed white-label fulfillment also available for businesses (from $49/package). Live ledger: https://settlement-collector.fly.dev/proof
+## Features
 
-**Reward:** the winning contributor gets a **free 30-day RAEN MCP gateway dev key**
-(Bearer access to `law_lookup`, `dispute_letter`, `image_generate`, `contract_analyze`, `tool_finder`
-at `https://raen-mcp-gateway.fly.dev/mcp`) plus a shout-out in
-[raen-agent-directory/llms.txt](https://bshelby88.github.io/raen-agent-directory/llms.txt)
-so every agent crawler that indexes us sees your integration.
+- **`dispute_letter_tool`**: Generates professional dispute letters based on provided context.
+- **`contract_analyze_tool`**: Extracts risks and key information from legal documents.
+- **Seamless Integration**: Built using CrewAI's `@tool` decorator for easy agent assignment.
 
-## How it works
+## Installation
 
-1. Pick an open bounty in [Issues](https://github.com/bshelby88/raen-bounties/issues) labeled `bounty`.
-2. Comment `/claim <issue#>` — the issue gets an `claimed` label so nobody duplicates work.
-3. Ship it (repo, gist, or PR). Open a PR here linking the artifact.
-4. On merge/acceptance you get: dev key by email (ops@royalruby.io sends it, 24h turnaround),
-   llms.txt listing, and your project linked from [the agent directory](https://bshelby88.github.io/raen-agent-directory/).
+1. Clone this repository or copy the files to your project.
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-## What counts
+## Configuration
 
-Real, working, publicly linkable integration of a RAEN x402 service or the MCP gateway into any
-agent framework (LangChain/LangGraph, CrewAI, ElizaOS, AutoGen, OpenHands, custom harnesses),
-or tooling that helps other developers consume the fleet (CLI clients, wrappers, test harnesses).
+You need a **RAEN MCP Dev Key** to use these tools. 
+Set it as an environment variable or pass it directly to the initialization function:
 
-## The fleet you're integrating
+```python
+from raen_crew_tools import init_raen_client
+init_raen_client("your_raen_dev_key_here")
+```
 
-12 x402 services on Base Mainnet (USDC, pay-per-call, $0.01–$0.50/call), MCP gateway, llms.txt,
-agents.json. Start at the [tool finder](https://bshelby88.github.io/raen-agent-directory/) or the
-[integration cookbook](https://github.com/bshelby88/x402-cookbook).
+## Usage Example
 
-> Not legal advice. Bounties reward code, not legal outcomes. CROA-compliant copy only.
+```python
+from crewai import Agent, Task, Crew
+from raen_crew_tools import dispute_letter_tool, init_raen_client
 
-— RAEN / Royal Agentic Enterprises · raen.royalruby.io
+init_raen_client("YOUR_KEY")
+
+agent = Agent(
+    role='Legal Assistant',
+    goal='Draft letters',
+    tools=[dispute_letter_tool],
+    backstory='Expert in legal writing'
+)
+
+# Define tasks and crew as usual...
+```
+
+## About RAEN
+RAEN is a fleet of agentic services. This integration connects to the MCP Gateway at `https://raen-mcp-gateway.fly.dev/mcp`.
